@@ -3,478 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adalah Pokoknya - Multi Akun</title>
+    <title>Adalah Pokoknya</title>
     <link rel="icon" type="image/png" href="/favicon.jpg">
-    
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <style>
-        :root {
-            --bg-color: #0b0c10;
-            --card-bg: #1f2833;
-            --primary-glow: #00f7ff;
-            --secondary-glow: #ff007f;
-            --text-color: #c5c6c7;
-            --text-light: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--card-bg);
-            border: 2px solid var(--primary-glow);
-            box-shadow: 0 0 15px var(--primary-glow);
-            border-radius: 12px;
-            padding: 20px;
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--text-light);
-            text-shadow: 0 0 10px var(--primary-glow);
-            margin-top: 0;
-        }
-
-        .active-account-info {
-            background: rgba(0, 247, 255, 0.1);
-            border: 1px dashed var(--primary-glow);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--text-light);
-        }
-
-        .account-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .account-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .account-item:hover {
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 8px rgba(0, 247, 255, 0.5);
-        }
-
-        .account-item.active {
-            border-color: var(--secondary-glow);
-            box-shadow: 0 0 8px var(--secondary-glow);
-            background: rgba(255, 0, 127, 0.05);
-        }
-
-        .account-email {
-            flex-grow: 1;
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-action {
-            background: transparent;
-            border: 1px solid #ff4444;
-            color: #ff4444;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.2s;
-        }
-
-        .btn-action.logout {
-            border-color: #ffbb33;
-            color: #ffbb33;
-        }
-
-        .btn-action:hover {
-            background: rgba(255, 68, 68, 0.2);
-        }
-
-        .btn-action.logout:hover {
-            background: rgba(255, 187, 51, 0.2);
-        }
-
-        /* Floating Add Button */
-        .btn-add {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--bg-color);
-            border: 2px solid var(--primary-glow);
-            color: var(--primary-glow);
-            font-size: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 15px var(--primary-glow);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: 0.3s;
-        }
-
-        .btn-add:hover {
-            transform: scale(1.1);
-            color: var(--text-light);
-            background: var(--primary-glow);
-        }
-
-        /* Pop Up / Modal Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 2px solid var(--secondary-glow);
-            box-shadow: 0 0 20px var(--secondary-glow);
-            padding: 25px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
-            color: var(--text-light);
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 10px;
-            margin: 15px 0;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--text-color);
-            color: #fff;
-            border-radius: 6px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .modal-content input:focus {
-            border-color: var(--secondary-glow);
-            outline: none;
-        }
-
-        .modal-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .btn-modal {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-confirm { background: var(--secondary-glow); color: white; }
-        .btn-cancel { background: #555; color: white; }
-
-        .request-code-link {
-            display: block;
-            margin-top: 10px;
-            color: var(--primary-glow);
-            text-decoration: underline;
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        /* Watermark */
-        .watermark {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.3);
-            letter-spacing: 1px;
-        }
-    </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Adalah Pokoknya</h1>
-        <div class="active-account-info" id="activeAccountInfo">
-            Akun Aktif: Menghubungkan...
+        <header>
+            <h1>Adalah Pokoknya</h1>
+            <p class="subtitle">Multi-Account Manager</p>
+        </header>
+
+        <div id="active-account-box" class="active-box hidden">
+            <span>Aktif: <strong id="current-user-email">-</strong></span>
         </div>
 
-        <h3 style="color: var(--text-light)">Daftar Multi Akun:</h3>
-        <ul class="account-list" id="accountList">
-            </ul>
+        <main class="account-section">
+            <h3>List Akun Terdaftar</h3>
+            <div id="account-list" class="account-list">
+                <p class="empty-state">Belum ada akun yang terhubung.</p>
+            </div>
+        </main>
 
-        <div class="watermark">by Daus XD</div>
+        <button id="btn-add-account" class="fab-btn">+</button>
+
+        <footer>
+            <div class="watermark">by Daus XD</div>
+        </footer>
     </div>
 
-    <button class="btn-add" onclick="openEmailModal()">+</button>
-
-    <div class="modal" id="emailModal">
+    <div id="pop-email" class="modal hidden">
         <div class="modal-content">
-            <h3>Masukkan Email Akun</h3>
-            <p style="font-size:12px;">Sistem otomatis mendeteksi akun baru/lama.</p>
-            <input type="email" id="inputEmail" placeholder="nama@email.com">
-            <div class="modal-buttons">
-                <button class="btn-modal btn-cancel" onclick="closeModal('emailModal')">Batal</button>
-                <button class="btn-modal btn-confirm" onclick="handleEmailSubmit()">Lanjut</button>
+            <h3>Hubungkan Akun Baru</h3>
+            <p>Masukkan email untuk menerima kode verifikasi OTP.</p>
+            <input type="email" id="input-email" placeholder="contoh@email.com" class="styled-input">
+            <div class="modal-actions">
+                <button onclick="closeModal('pop-email')" class="btn-secondary">Batal</button>
+                <button onclick="handleSendOTP()" id="btn-submit-email" class="btn-primary">Kirim Kode</button>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="otpModal">
-        <div class="modal-content" style="border-color: var(--primary-glow); box-shadow: 0 0 20px var(--primary-glow);">
-            <h3>Verifikasi Kode</h3>
-            <p style="font-size:12px;">Masukkan 6 digit kode yang dikirim ke email Anda.</p>
-            <input type="text" id="inputOTP" placeholder="123456" maxlength="6">
-            <div class="modal-buttons">
-                <button class="btn-modal btn-cancel" onclick="closeModal('otpModal')">Batal</button>
-                <button class="btn-modal btn-confirm" style="background: var(--primary-glow); color: #000;" onclick="handleOTPSubmit()">Verifikasi</button>
+    <div id="pop-otp" class="modal hidden">
+        <div class="modal-content">
+            <h3>Verifikasi Email</h3>
+            <p>Masukkan 6 digit kode OTP yang dikirim ke email Anda.</p>
+            <input type="text" id="input-otp" placeholder="123456" maxlength="6" class="styled-input text-center">
+            <div class="otp-resend-box">
+                <button onclick="handleSendOTP()" class="btn-link">Minta kode baru</button>
             </div>
-            <span class="request-code-link" onclick="resendOTP()">Minta kode baru (Kirim Ulang)</span>
-        </div>
-    </div>
-
-    <div class="modal" id="deleteModal">
-        <div class="modal-content" style="border-color: #ff4444; box-shadow: 0 0 20px #ff4444;">
-            <h3>Konfirmasi Hapus Akun</h3>
-            <p>Ketik kode acak berikut untuk menghapus akun: <br><b id="randomCodeDisplay" style="color:#ff4444; font-size:18px;">XXXX</b></p>
-            <input type="text" id="inputRandomCode" placeholder="Masukkan kode di atas">
-            <div class="modal-buttons">
-                <button class="btn-modal btn-cancel" onclick="closeModal('deleteModal')">Batal</button>
-                <button class="btn-modal btn-confirm" style="background:#ff4444;" onclick="confirmDeleteAccount()">Hapus Permanen</button>
+            <div class="modal-actions">
+                <button onclick="closeModal('pop-otp')" class="btn-secondary">Batal</button>
+                <button onclick="handleVerifyOTP()" class="btn-primary">Verifikasi</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // GANTI DENGAN DATA DARI SUPABASE SETTING ANDA
-        const SUPABASE_URL = "https://sqzbjedgcqsnwvebrzxl.supabase.co"; 
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxemJqZWRnY3Fzbnd2ZWJyenhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MDgzOTIsImV4cCI6MjA5NTM4NDM5Mn0.Zc87Z9o3HMk0xyGfTaRj5V_zT9EgaNxEwnyw9K5LArU";
+    <div id="pop-logout" class="modal hidden">
+        <div class="modal-content">
+            <h3>Konfirmasi Keluar</h3>
+            <p>Apakah Anda yakin ingin logout dari akun <strong id="logout-target">-</strong>?</p>
+            <div class="modal-actions">
+                <button onclick="closeModal('pop-logout')" class="btn-secondary">Batal</button>
+                <button id="confirm-logout-btn" class="btn-danger">Logout</button>
+            </div>
+        </div>
+    </div>
 
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <div id="pop-delete" class="modal hidden">
+        <div class="modal-content">
+            <h3>Hapus Akun Permanen</h3>
+            <p>Untuk menghapus <strong id="delete-target">-</strong>, ketik kode acak di bawah ini:</p>
+            <div class="random-code-box" id="random-code-display">0000</div>
+            <input type="text" id="delete-code-input" placeholder="Masukkan kode di atas" class="styled-input text-center">
+            <div class="modal-actions">
+                <button onclick="closeModal('pop-delete')" class="btn-secondary">Batal</button>
+                <button id="confirm-delete-btn" class="btn-danger">Hapus Akun</button>
+            </div>
+        </div>
+    </div>
 
-        let tempEmail = "";
-        let accountSessionList = JSON.parse(localStorage.getItem('multi_accounts')) || [];
-        let currentActiveEmail = localStorage.getItem('active_account_email') || "";
-        let deleteTargetEmail = "";
-        let generatedDeleteCode = "";
-
-        // Inisialisasi Aplikasi
-        window.onload = function() {
-            renderAccountList();
-            updateActiveStatusDisplay();
-        };
-
-        function renderAccountList() {
-            const listContainer = document.getElementById('accountList');
-            listContainer.innerHTML = "";
-
-            if (accountSessionList.length === 0) {
-                listContainer.innerHTML = `<li style="text-align:center; padding: 20px; color: #888;">Belum ada akun terdaftar. Klik '+' untuk menambahkan.</li>`;
-                return;
-            }
-
-            accountSessionList.forEach(email => {
-                const isActive = email === currentActiveEmail;
-                const li = document.createElement('li');
-                li.className = `account-item ${isActive ? 'active' : ''}`;
-                // Klik list akun untuk beralih akun
-                li.onclick = () => switchAccount(email);
-
-                li.innerHTML = `
-                    <div class="account-email">${email} ${isActive ? ' <span style="color:var(--secondary-glow); font-size:11px;">(Aktif)</span>' : ''}</div>
-                    <div class="action-buttons" onclick="event.stopPropagation();">
-                        <button class="btn-action logout" onclick="triggerLogout('${email}')">Logout</button>
-                        <button class="btn-action" onclick="triggerDelete('${email}')">Hapus</button>
-                    </div>
-                `;
-                listContainer.appendChild(li);
-            });
-        }
-
-        function updateActiveStatusDisplay() {
-            const info = document.getElementById('activeAccountInfo');
-            if (currentActiveEmail) {
-                info.textContent = `Akun Aktif: ${currentActiveEmail}`;
-                info.style.borderColor = "var(--secondary-glow)";
-            } else {
-                info.textContent = "Tidak ada akun aktif yang dipilih";
-                info.style.borderColor = "var(--primary-glow)";
-            }
-        }
-
-        // Fungsi Buka Tutup Pop Up
-        function openEmailModal() { document.getElementById('emailModal').style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-        // Proses Input Email (Minta Kode)
-        async function handleEmailSubmit() {
-            const emailInput = document.getElementById('inputEmail').value.trim();
-            if (!emailInput) return alert('Masukkan email dengan benar!');
-            
-            tempEmail = emailInput;
-            closeModal('emailModal');
-            
-            await sendOTPCode(tempEmail);
-            document.getElementById('otpModal').style.display = 'flex';
-        }
-
-        // Kirim OTP via Supabase
-        async function sendOTPCode(email) {
-            const { data, error } = await supabase.auth.signInWithOtp({
-                email: email,
-                options: { shouldCreateUser: true } // Otomatis mendaftar jika belum punya akun
-            });
-
-            if (error) {
-                alert("Gagal mengirim kode: " + error.message);
-                console.error(error);
-            } else {
-                alert("Kode verifikasi (OTP) berhasil dikirim ke " + email);
-            }
-        }
-
-        // Fitur Minta Ulang Kode
-        async function resendOTP() {
-            if (tempEmail) await sendOTPCode(tempEmail);
-        }
-
-        // Verifikasi OTP
-        async function handleOTPSubmit() {
-            const otpCode = document.getElementById('inputOTP').value.trim();
-            if (otpCode.length < 6) return alert('Kode OTP harus 6 digit!');
-
-            const { data, error } = await supabase.auth.verifyOtp({
-                email: tempEmail,
-                token: otpCode,
-                type: 'email'
-            });
-
-            if (error) {
-                alert("Verifikasi Gagal: " + error.message);
-            } else {
-                alert("Verifikasi Berhasil!");
-                closeModal('otpModal');
-                
-                // Tambahkan ke sistem Multi Akun lokal jika belum ada
-                if (!accountSessionList.includes(tempEmail)) {
-                    accountSessionList.push(tempEmail);
-                    localStorage.setItem('multi_accounts', JSON.stringify(accountSessionList));
-                }
-                
-                // Otomatis aktifkan akun baru login
-                currentActiveEmail = tempEmail;
-                localStorage.setItem('active_account_email', currentActiveEmail);
-                
-                // Reset form
-                document.getElementById('inputEmail').value = "";
-                document.getElementById('inputOTP').value = "";
-                
-                renderAccountList();
-                updateActiveStatusDisplay();
-            }
-        }
-
-        // Beralih Akun (Switch Account)
-        function switchAccount(email) {
-            currentActiveEmail = email;
-            localStorage.setItem('active_account_email', email);
-            alert(`Berhasil beralih ke akun: ${email}`);
-            renderAccountList();
-            updateActiveStatusDisplay();
-        }
-
-        // Fitur Logout dengan Konfirmasi
-        function triggerLogout(email) {
-            const konfirmasi = confirm(`Apakah Anda yakin ingin logout dari akun ${email}?`);
-            if (konfirmasi) {
-                // Hapus dari list multi-akun local
-                accountSessionList = accountSessionList.filter(acc => acc !== email);
-                localStorage.setItem('multi_accounts', JSON.stringify(accountSessionList));
-                
-                if (currentActiveEmail === email) {
-                    currentActiveEmail = accountSessionList[0] || "";
-                    localStorage.setItem('active_account_email', currentActiveEmail);
-                }
-                
-                supabase.auth.signOut(); // Logout session dari supabase
-                alert(`Akun ${email} berhasil logout.`);
-                renderAccountList();
-                updateActiveStatusDisplay();
-            }
-        }
-
-        // Fitur Hapus Akun dengan Konfirmasi Kode Acak
-        function triggerDelete(email) {
-            deleteTargetEmail = email;
-            // Generate kode acak 4 karakter alphanumeric kapital
-            generatedDeleteCode = Math.random().toString(36).substring(2, 6).toUpperCase();
-            document.getElementById('randomCodeDisplay').textContent = generatedDeleteCode;
-            document.getElementById('inputRandomCode').value = "";
-            document.getElementById('deleteModal').style.display = 'flex';
-        }
-
-        function confirmDeleteAccount() {
-            const inputCode = document.getElementById('inputRandomCode').value.trim().toUpperCase();
-            if (inputCode !== generatedDeleteCode) {
-                return alert('Kode konfirmasi salah! Gagal menghapus akun.');
-            }
-
-            // Eksekusi penghapusan dari list lokal aplikasi
-            accountSessionList = accountSessionList.filter(acc => acc !== deleteTargetEmail);
-            localStorage.setItem('multi_accounts', JSON.stringify(accountSessionList));
-
-            if (currentActiveEmail === deleteTargetEmail) {
-                currentActiveEmail = accountSessionList[0] || "";
-                localStorage.setItem('active_account_email', currentActiveEmail);
-            }
-
-            alert(`Akun ${deleteTargetEmail} sukses dihapus dari perangkat ini.`);
-            closeModal('deleteModal');
-            renderAccountList();
-            updateActiveStatusDisplay();
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>

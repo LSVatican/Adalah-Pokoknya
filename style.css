@@ -1,0 +1,271 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #0b0f19;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container Utama */
+.container {
+    background: #111827;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, #ff007f, #7928ca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+}
+
+.subtitle {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-top: 5px;
+}
+
+/* Info Akun Aktif */
+.active-box {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* List Akun */
+.account-section h3 {
+    font-size: 1rem;
+    color: #9ca3af;
+    margin-bottom: 12px;
+}
+
+.account-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.account-item {
+    background: #1f2937;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.account-item:hover {
+    border-color: rgba(244, 63, 94, 0.5);
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+}
+
+.account-item.active {
+    border-color: #ff007f;
+    box-shadow: 0 0 12px rgba(255, 0, 127, 0.4);
+    background: rgba(255, 0, 127, 0.05);
+}
+
+.account-info {
+    cursor: pointer;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.account-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+/* Tombol Aksi List */
+.btn-action {
+    background: #2d3748;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-action.logout:hover { background: #d97706; }
+.btn-action.delete:hover { background: #dc2626; }
+
+/* Floating Action Button (+) */
+.fab-btn {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff007f, #7928ca);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab-btn:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.9);
+}
+
+/* Modals / Popups */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.3s;
+}
+
+.modal-content {
+    background: #111827;
+    border: 2px solid rgba(255, 0, 127, 0.4);
+    box-shadow: 0 0 25px rgba(255, 0, 127, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.modal h3 {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.modal p {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+.styled-input {
+    width: 100%;
+    padding: 10px 15px;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.styled-input:focus {
+    border-color: #ff007f;
+    box-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+}
+
+.text-center { text-align: center; letter-spacing: 2px; }
+
+/* Buttons */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+}
+
+.btn-primary { background: #ff007f; color: white; }
+.btn-secondary { background: #374151; color: #d1d5db; }
+.btn-danger { background: #dc2626; color: white; }
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #ff007f;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.otp-resend-box { margin-bottom: 15px; }
+
+/* Random Code Display */
+.random-code-box {
+    background: #374151;
+    padding: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #ff007f;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+/* Watermark */
+.watermark {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.2);
+    margin-top: 35px;
+    letter-spacing: 2px;
+}
+
+/* Helper Classes */
+.hidden { display: none !important; }
+.empty-state { text-align: center; color: #4b5563; font-style: italic; padding: 20px 0; }
