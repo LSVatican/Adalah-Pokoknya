@@ -1,64 +1,62 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adalah Pokoknya</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adalah Pokoknya</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <div class="app-container">
-        <header>
-            <h1>Adalah Pokoknya</h1>
-            <span class="subtitle">Multi-Account Manager</span>
-        </header>
+  <div class="app-container">
+    <header>
+      <h1>Adalah Pokoknya</h1>
+      <span class="brand-watermark">by Daus XD</span>
+    </header>
 
-        <div class="current-profile" id="currentProfile">
-            <p>Akun Aktif: <span id="activeEmail">Belum ada akun aktif</span></p>
-        </div>
-
-        <main class="account-section">
-            <h3>Daftar Akun Terdaftar</h3>
-            <div id="accountList" class="account-list">
-                </div>
-        </main>
-
-        <button class="fab-btn" id="openEmailModal">+</button>
-
-        <footer class="watermark">by Daus XD</footer>
+    <div id="active-account-box" class="active-box">
+      <p>Akun Aktif: <strong id="current-user-email">Memuat...</strong></p>
     </div>
 
-    <div class="modal" id="emailModal">
-        <div class="modal-content">
-            <h3>Masuk / Tambah Akun</h3>
-            <p>Masukkan email Anda untuk menerima kode verifikasi.</p>
-            <input type="email" id="emailInput" placeholder="nama@email.com" required>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeModal('emailModal')">Batal</button>
-                <button class="btn btn-primary" id="btnSendCode">Kirim Kode</button>
-            </div>
-        </div>
-    </div>
+    <main class="account-section">
+      <div class="section-header">
+        <h2>Daftar Akun Terhubung</h2>
+        <button id="btn-add-account" class="btn-fab">+</button>
+      </div>
+      <ul id="account-list" class="account-list">
+        </ul>
+    </main>
+  </div>
 
-    <div class="modal" id="codeModal">
-        <div class="modal-content">
-            <h3>Verifikasi Email</h3>
-            <p>Kode verifikasi telah dikirim ke <br><b id="targetEmail"></b></p>
-            <input type="text" id="codeInput" placeholder="Masukkan 6 Digit Kode" maxlength="6">
-            <div class="resend-box">
-                <span id="countdownText"></span>
-                <button id="btnResend" class="btn-link" disabled>Minta Kode Lagi</button>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeModal('codeModal')">Batal</button>
-                <button class="btn btn-primary" id="btnVerifyCode">Verifikasi</button>
-            </div>
-        </div>
+  <div id="modal-email" class="modal">
+    <div class="modal-content">
+      <h3>Tambah / Masuk Akun</h3>
+      <p>Masukkan email Anda untuk menerima kode verifikasi.</p>
+      <input type="email" id="input-email" placeholder="nama@email.com" required>
+      <div class="modal-actions">
+        <button onclick="closeModal('modal-email')" class="btn-secondary">Batal</button>
+        <button id="btn-send-otp" class="btn-primary">Kirim Kode</button>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <div id="modal-otp" class="modal">
+    <div class="modal-content">
+      <h3>Verifikasi Kode OTP</h3>
+      <p>Kode telah dikirim ke <span id="target-email" style="font-weight:bold;"></span></p>
+      <input type="text" id="input-otp" placeholder="Masukkan 6 digit kode" maxlength="6">
+      <div class="modal-actions">
+        <button id="btn-resend-otp" class="btn-link">Minta Kode Lagi</button>
+        <div class="right-actions">
+          <button onclick="closeModal('modal-otp')" class="btn-secondary">Batal</button>
+          <button id="btn-verify-otp" class="btn-primary">Verifikasi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
