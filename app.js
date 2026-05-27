@@ -13,12 +13,12 @@ import {
 
 // Ambil konfigurasi dari Firebase Console Anda
 const firebaseConfig = {
-    apiKey: "CONTOH_API_KEY_ANDA",
-    authDomain: "PROJECT_ANDA.firebaseapp.com",
-    projectId: "PROJECT_ANDA",
-    storageBucket: "PROJECT_ANDA.appspot.com",
-    messagingSenderId: "ID_SENDER",
-    appId: "ID_APP"
+  apiKey: "AIzaSyCR0L2yoZqJO9NK-2GTJv6o9gLW4t9KCCE",
+  authDomain: "adalah-pokoknya-2025.firebaseapp.com",
+  projectId: "adalah-pokoknya-2025",
+  storageBucket: "adalah-pokoknya-2025.firebasestorage.app",
+  messagingSenderId: "776897939023",
+  appId: "1:776897939023:web:a90e7c625b0f223c7ccc3a"
 };
 
 // Inisialisasi Firebase
