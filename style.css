@@ -1,271 +1,200 @@
-/* Reset & Base Styles */
+:root {
+    --bg-color: #0d1117;
+    --card-bg: #161b22;
+    --accent-color: #58a6ff;
+    --text-color: #c9d1d9;
+    --danger-color: #f85149;
+    --glow-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #0b0f19;
-    color: #e2e8f0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
     padding: 20px;
 }
 
-/* Container Utama */
 .container {
-    background: #111827;
     width: 100%;
-    max-width: 450px;
-    border-radius: 20px;
-    padding: 25px;
-    position: relative;
-    box-shadow: 0 0 20px rgba(244, 63, 94, 0.1);
-    border: 1px solid rgba(244, 63, 94, 0.2);
+    max-width: 500px;
+    margin-top: 40px;
 }
 
 header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 header h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background: linear-gradient(45deg, #ff007f, #7928ca);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
 .subtitle {
-    font-size: 0.85rem;
-    color: #9ca3af;
-    margin-top: 5px;
-}
-
-/* Info Akun Aktif */
-.active-box {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid #10b981;
-    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
-    padding: 10px 15px;
-    border-radius: 10px;
     font-size: 0.9rem;
-    margin-bottom: 20px;
-    text-align: center;
+    color: #8b949e;
 }
 
-/* List Akun */
-.account-section h3 {
-    font-size: 1rem;
-    color: #9ca3af;
-    margin-bottom: 12px;
+h3 {
+    margin-bottom: 15px;
+    color: #fff;
 }
 
+/* Account List styling */
 .account-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-height: 300px;
-    overflow-y: auto;
 }
 
 .account-item {
-    background: #1f2937;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 12px 15px;
+    background: var(--card-bg);
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .account-item:hover {
-    border-color: rgba(244, 63, 94, 0.5);
-    box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: var(--glow-shadow);
 }
 
 .account-item.active {
-    border-color: #ff007f;
-    box-shadow: 0 0 12px rgba(255, 0, 127, 0.4);
-    background: rgba(255, 0, 127, 0.05);
+    border-color: #238636;
+    box-shadow: 0 0 15px rgba(35, 134, 54, 0.4);
 }
 
 .account-info {
-    cursor: pointer;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-email {
+    font-weight: bold;
+    color: #fff;
+}
+
+.account-status {
+    font-size: 0.8rem;
+    color: #8b949e;
+}
+
+.account-item.active .account-status {
+    color: #56d364;
 }
 
 .account-actions {
     display: flex;
     gap: 8px;
-    margin-left: 10px;
 }
 
-/* Tombol Aksi List */
-.btn-action {
-    background: #2d3748;
-    color: #fff;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 0.75rem;
+button {
     cursor: pointer;
-    transition: background 0.2s;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    transition: 0.2s;
 }
 
-.btn-action.logout:hover { background: #d97706; }
-.btn-action.delete:hover { background: #dc2626; }
+.btn-primary { background: var(--accent-color); color: #fff; }
+.btn-secondary { background: #21262d; color: var(--text-color); border: 1px solid #30363d; }
+.btn-logout { background: #30363d; color: #ff7b72; }
+.btn-logout:hover { background: #f85149; color: #fff; }
+.btn-delete { background: rgba(248, 81, 73, 0.1); color: var(--danger-color); border: 1px solid rgba(248, 81, 73, 0.2); }
+.btn-delete:hover { background: var(--danger-color); color: #fff; }
+.btn-link { background: none; color: var(--accent-color); text-decoration: underline; }
 
 /* Floating Action Button (+) */
 .fab-btn {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #ff007f, #7928ca);
-    border: none;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
+    background: var(--accent-color);
     color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+    font-size: 28px;
+    box-shadow: var(--glow-shadow);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .fab-btn:hover {
-    transform: translateX(-50%) scale(1.1);
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.9);
+    transform: scale(1.1);
 }
 
-/* Modals / Popups */
+/* Modals */
 .modal {
+    display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    display: flex;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
     justify-content: center;
     align-items: center;
-    z-index: 100;
-    transition: opacity 0.3s;
+    z-index: 1000;
 }
 
 .modal-content {
-    background: #111827;
-    border: 2px solid rgba(255, 0, 127, 0.4);
-    box-shadow: 0 0 25px rgba(255, 0, 127, 0.3);
-    border-radius: 16px;
-    padding: 20px;
+    background: var(--card-bg);
+    border: 1px solid #30363d;
+    padding: 25px;
+    border-radius: 12px;
     width: 90%;
-    max-width: 380px;
-    text-align: center;
+    max-width: 400px;
+    box-shadow: var(--glow-shadow);
 }
 
-.modal h3 {
-    margin-bottom: 10px;
-    color: #fff;
-}
+.modal-content h3 { margin-bottom: 10px; }
+.modal-content p { font-size: 0.9rem; color: #8b949e; margin-bottom: 15px; }
 
-.modal p {
-    font-size: 0.85rem;
-    color: #9ca3af;
-    margin-bottom: 15px;
-}
-
-/* Inputs */
-.styled-input {
+input[type="email"], input[type="text"] {
     width: 100%;
-    padding: 10px 15px;
-    background: #1f2937;
-    border: 1px solid #374151;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
+    padding: 10px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #fff;
     margin-bottom: 15px;
+}
+
+input:focus {
+    border-color: var(--accent-color);
     outline: none;
 }
 
-.styled-input:focus {
-    border-color: #ff007f;
-    box-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
-}
-
-.text-center { text-align: center; letter-spacing: 2px; }
-
-/* Buttons */
 .modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-}
-
-.btn-primary, .btn-secondary, .btn-danger {
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border: none;
-    font-weight: 600;
-}
-
-.btn-primary { background: #ff007f; color: white; }
-.btn-secondary { background: #374151; color: #d1d5db; }
-.btn-danger { background: #dc2626; color: white; }
-
-.btn-link {
-    background: none;
-    border: none;
-    color: #ff007f;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.85rem;
-}
-
-.otp-resend-box { margin-bottom: 15px; }
-
-/* Random Code Display */
-.random-code-box {
-    background: #374151;
-    padding: 8px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    letter-spacing: 4px;
-    color: #ff007f;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    display: inline-block;
+    margin-top: 10px;
 }
 
 /* Watermark */
 .watermark {
-    text-align: center;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.2);
-    margin-top: 35px;
-    letter-spacing: 2px;
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: #8b949e;
+    opacity: 0.5;
+    letter-spacing: 1px;
 }
-
-/* Helper Classes */
-.hidden { display: none !important; }
-.empty-state { text-align: center; color: #4b5563; font-style: italic; padding: 20px 0; }

@@ -13,78 +13,49 @@
     <div class="container">
         <header>
             <h1>Adalah Pokoknya</h1>
-            <p class="subtitle">Multi-Account Manager</p>
+            <p class="subtitle">Multi-Account Management System</p>
         </header>
 
-        <div id="active-account-box" class="active-box hidden">
-            <span>Aktif: <strong id="current-user-email">-</strong></span>
-        </div>
-
-        <main class="account-section">
-            <h3>List Akun Terdaftar</h3>
-            <div id="account-list" class="account-list">
-                <p class="empty-state">Belum ada akun yang terhubung.</p>
+        <main>
+            <div class="account-section">
+                <h3>Akun Terhubung</h3>
+                <div id="accountList" class="account-list">
+                    </div>
             </div>
         </main>
 
-        <button id="btn-add-account" class="fab-btn">+</button>
-
-        <footer>
-            <div class="watermark">by Daus XD</div>
-        </footer>
+        <button id="btnOpenEmailModal" class="fab-btn" title="Tambah Akun">+</button>
     </div>
 
-    <div id="pop-email" class="modal hidden">
+    <div id="emailModal" class="modal">
         <div class="modal-content">
-            <h3>Hubungkan Akun Baru</h3>
-            <p>Masukkan email untuk menerima kode verifikasi OTP.</p>
-            <input type="email" id="input-email" placeholder="contoh@email.com" class="styled-input">
+            <h3>Masuk / Tambah Akun</h3>
+            <p>Masukkan email Anda untuk menerima kode verifikasi.</p>
+            <input type="email" id="inputEmail" placeholder="contoh@email.com" required>
             <div class="modal-actions">
-                <button onclick="closeModal('pop-email')" class="btn-secondary">Batal</button>
-                <button onclick="handleSendOTP()" id="btn-submit-email" class="btn-primary">Kirim Kode</button>
+                <button onclick="closeModal('emailModal')" class="btn-secondary">Batal</button>
+                <button onclick="handleSendOTP()" id="btnSendOTP" class="btn-primary">Kirim Kode</button>
             </div>
         </div>
     </div>
 
-    <div id="pop-otp" class="modal hidden">
+    <div id="otpModal" class="modal">
         <div class="modal-content">
-            <h3>Verifikasi Email</h3>
-            <p>Masukkan 6 digit kode OTP yang dikirim ke email Anda.</p>
-            <input type="text" id="input-otp" placeholder="123456" maxlength="6" class="styled-input text-center">
-            <div class="otp-resend-box">
-                <button onclick="handleSendOTP()" class="btn-link">Minta kode baru</button>
+            <h3>Verifikasi Kode OTP</h3>
+            <p>Kode telah dikirim ke <strong id="displayEmail"></strong></p>
+            <input type="text" id="inputOTP" placeholder="Masukkan 6 Digit Kode" maxlength="6">
+            <div class="modal-actions">
+                <button onclick="requestCodeAgain()" class="btn-link">Minta Kode Lagi</button>
             </div>
             <div class="modal-actions">
-                <button onclick="closeModal('pop-otp')" class="btn-secondary">Batal</button>
+                <button onclick="closeModal('otpModal')" class="btn-secondary">Batal</button>
                 <button onclick="handleVerifyOTP()" class="btn-primary">Verifikasi</button>
             </div>
         </div>
     </div>
 
-    <div id="pop-logout" class="modal hidden">
-        <div class="modal-content">
-            <h3>Konfirmasi Keluar</h3>
-            <p>Apakah Anda yakin ingin logout dari akun <strong id="logout-target">-</strong>?</p>
-            <div class="modal-actions">
-                <button onclick="closeModal('pop-logout')" class="btn-secondary">Batal</button>
-                <button id="confirm-logout-btn" class="btn-danger">Logout</button>
-            </div>
-        </div>
-    </div>
+    <div class="watermark">by Daus XD</div>
 
-    <div id="pop-delete" class="modal hidden">
-        <div class="modal-content">
-            <h3>Hapus Akun Permanen</h3>
-            <p>Untuk menghapus <strong id="delete-target">-</strong>, ketik kode acak di bawah ini:</p>
-            <div class="random-code-box" id="random-code-display">0000</div>
-            <input type="text" id="delete-code-input" placeholder="Masukkan kode di atas" class="styled-input text-center">
-            <div class="modal-actions">
-                <button onclick="closeModal('pop-delete')" class="btn-secondary">Batal</button>
-                <button id="confirm-delete-btn" class="btn-danger">Hapus Akun</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
