@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adalah Pokoknya</title>
-    <link rel="icon" type="image/png" href="/favicon.jpg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -16,46 +17,59 @@
             <p class="subtitle">Multi-Account Management System</p>
         </header>
 
-        <main>
-            <div class="account-section">
-                <h3>Akun Terhubung</h3>
-                <div id="accountList" class="account-list">
-                    </div>
+        <div class="action-bar">
+            <button class="btn btn-primary" onclick="togglePopup('login-popup', true)">
+                <i class="fas fa-user-plus"></i> Tambah / Hubungkan Akun
+            </button>
+        </div>
+
+        <main class="account-section">
+            <h3><i class="fas fa-users-cog"></i> Sesi Akun Aktif</h3>
+            <div id="account-list" class="account-list">
+                <div class="empty-state">Belum ada akun yang terhubung.</div>
             </div>
         </main>
 
-        <button id="btnOpenEmailModal" class="fab-btn" title="Tambah Akun">+</button>
+        <footer>
+            <p>by Daus XD</p>
+        </footer>
     </div>
 
-    <div id="emailModal" class="modal">
-        <div class="modal-content">
-            <h3>Masuk / Tambah Akun</h3>
-            <p>Masukkan email Anda untuk menerima kode verifikasi.</p>
-            <input type="email" id="inputEmail" placeholder="contoh@email.com" required>
-            <div class="modal-actions">
-                <button onclick="closeModal('emailModal')" class="btn-secondary">Batal</button>
-                <button onclick="handleSendOTP()" id="btnSendOTP" class="btn-primary">Kirim Kode</button>
+    <div id="login-popup" class="popup-overlay">
+        <div class="popup-box animate-glow">
+            <button class="close-btn" onclick="togglePopup('login-popup', false)">&times;</button>
+            <h3>Pilih Metode Login</h3>
+            <p>Hubungkan multi-akun Anda ke platform</p>
+            
+            <div class="login-options">
+                <button class="btn-login google" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i> Masuk dengan Google
+                </button>
+                <button class="btn-login github" onclick="loginWithGithub()">
+                    <i class="fab fa-github"></i> Masuk dengan GitHub
+                </button>
+                <button class="btn-login email" onclick="openEmailInput()">
+                    <i class="fas fa-envelope"></i> Masuk dengan Email Link
+                </button>
             </div>
         </div>
     </div>
 
-    <div id="otpModal" class="modal">
-        <div class="modal-content">
-            <h3>Verifikasi Kode OTP</h3>
-            <p>Kode telah dikirim ke <strong id="displayEmail"></strong></p>
-            <input type="text" id="inputOTP" placeholder="Masukkan 6 Digit Kode" maxlength="6">
-            <div class="modal-actions">
-                <button onclick="requestCodeAgain()" class="btn-link">Minta Kode Lagi</button>
-            </div>
-            <div class="modal-actions">
-                <button onclick="closeModal('otpModal')" class="btn-secondary">Batal</button>
-                <button onclick="handleVerifyOTP()" class="btn-primary">Verifikasi</button>
+    <div id="email-popup" class="popup-overlay">
+        <div class="popup-box">
+            <button class="close-btn" onclick="togglePopup('email-popup', false)">&times;</button>
+            <h3>Masuk via Email Link</h3>
+            <p>Link verifikasi akan dikirimkan langsung ke inbox email Anda.</p>
+            
+            <div class="form-group">
+                <input type="email" id="email-input" placeholder="Masukkan alamat email aktif..." required>
+                <button class="btn btn-submit" onclick="sendEmailVerificationLink()">
+                    <i class="fas fa-paper-plane"></i> Kirim Link Verifikasi
+                </button>
             </div>
         </div>
     </div>
 
-    <div class="watermark">by Daus XD</div>
-
-    <script src="script.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
